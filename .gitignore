@@ -1,0 +1,49 @@
+# Jupyter Notebook checkpoints and outputs
+.ipynb_checkpoints/
+*.ipynb~ 
+*.nbconvert.ipynb
+
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pyd
+*.pyo
+*.pdb
+*.egg-info/
+*.egg
+*.env/
+.env/
+.venv/
+venv/
+ENV/
+env/
+Pipfile.lock
+
+# VS Code settings
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Misc
+*.bak
+*.swp
+*.tmp
+
+# node modules
+node_modules/
