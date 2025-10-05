@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>SpaceApps Exoplanets Project</title>
+    <title>Classifying Exoplanets</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body { font-family: Arial, sans-serif; margin: 2em; background: #f8f9fa; }
@@ -14,11 +14,21 @@
             font-size: 1.5em;
             font-weight: bold;
             color: #fff;
-            background: #27ae60;
             border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(39,174,96,0.15);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             letter-spacing: 0.1em;
+            background: #ffffff01;
+            
         }
+        
+        .disposition-label[data-prediction="CONFIRMED"] {
+            background: #27ae60;
+        }
+
+        .disposition-label[data-prediction="FALSE POSITIVE"] {
+            background: #c0392b;
+        }
+
         .container { max-width: 700px; margin: auto; background: #fff; padding: 2em; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);}
         p { color: #444; }
         form { margin-top: 2em; }
@@ -33,23 +43,24 @@
 </head>
 <body>
     <div class="container">
-        <h1>SpaceApps Exoplanets Project</h1>
-        <p>Prediction: <div class="disposition-label">LOADING...</div></p>
+        <h1>Classifying Exoplanets</h1>
+        <p>Modify the below inputs and see if the data looks like a planet!</p>
+    <p>Predicted disposition based on Keppler Objects of Interest data: <div id="prediction-label" class="disposition-label">LOADING...</div></p>
         
         <form>
             <div class="form-group">
                 <label for="prad">Planet Radius<span class="importance">(importance: 0.254)</span></label>
-                <input type="range" id="prad" name="prad" min="0.1" max="200" step="0.1" value="18">
+                <input type="range" id="prad" name="prad" min="0.1" max="200" step="0.1" value="4">
                 <output id="prad_out">2.5</output>
             </div>
             <div class="form-group">
                 <label for="insol">Insolation Flux<span class="importance">(importance: 0.207)</span></label>
-                <input type="range" id="insol" name="insol" min="0" max="10000" step="1" value="5">
+                <input type="range" id="insol" name="insol" min="0" max="10000" step="1" value="4692">
                 <output id="insol_out">5</output>
             </div>
             <div class="form-group">
                 <label for="model_snr">Model SNR<span class="importance">(importance: 0.132)</span></label>
-                <input type="range" id="model_snr" name="model_snr" min="0" max="100" step="1" value="2.5">
+                <input type="range" id="model_snr" name="model_snr" min="0" max="100" step="1" value="39">
                 <output id="model_snr_out">2.5</output>
             </div>
             <div class="form-group">
@@ -120,7 +131,9 @@
 
             async function updatePrediction(input) {
                 const prediction = await getPrediction(input);
-                document.querySelector('.disposition-label').innerText = prediction;
+                const label = document.getElementById('prediction-label');
+                label.innerText = prediction;
+                label.setAttribute('data-prediction', prediction);
             }
 
             document.addEventListener('DOMContentLoaded', async () => {
